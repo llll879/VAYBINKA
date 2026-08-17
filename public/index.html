@@ -63,8 +63,9 @@ function openSearch(){openModal('<div class="sheet-head"><h2>Поиск по @us
 function openLily(){if($('lily'))return;document.body.insertAdjacentHTML('beforeend',`<div id="lily" class="chat lily"><div class="chat-head"><img class="avatar" src="${stickers[1]}"><div class="chat-title"><b>Лили</b><small>AI-помощница VYBINKA</small></div><button class="iconbtn" onclick="closeLily()">×</button></div><div id="lilybody" class="chat-body"><div class="bubble">Привет! Я Лили 🪽. Могу помочь освоиться на сайте или просто поболтать.</div></div><div class="chat-tools"><div class="composer"><input id="lilyinput" class="input" placeholder="Спроси Лили..." onkeydown="if(event.key==='Enter')askLily()"><button class="circle" onclick="askLily()">➤</button></div></div></div>`);$('lilyinput')?.focus()}
 function closeLily(){$('lily')?.remove()}
 async function askLily(){const v=$('lilyinput').value.trim();if(!v)return;lilyHistory.push({role:'user',content:v});$('lilybody').insertAdjacentHTML('beforeend','<div class="bubble me">'+esc(v)+'</div>');$('lilyinput').value='';try{const d=await api('/api/lily',{method:'POST',body:{messages:lilyHistory}});lilyHistory.push({role:'assistant',content:d.reply});$('lilybody').insertAdjacentHTML('beforeend','<div class="bubble">'+esc(d.reply).replace(/\n/g,'<br>')+'</div>')}catch{toast('Лили временно недоступна')}}
-boot();
+window.addEventListener('load', ()=>{
+  boot();
+});
 
-<script src="/client.js"></script>
 <script src="/vkb_fixes.js"></script>
 
