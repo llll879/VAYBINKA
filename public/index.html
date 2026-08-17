@@ -65,4 +65,5 @@ function closeLily(){$('lily')?.remove()}
 async function askLily(){const v=$('lilyinput').value.trim();if(!v)return;lilyHistory.push({role:'user',content:v});$('lilybody').insertAdjacentHTML('beforeend','<div class="bubble me">'+esc(v)+'</div>');$('lilyinput').value='';try{const d=await api('/api/lily',{method:'POST',body:{messages:lilyHistory}});lilyHistory.push({role:'assistant',content:d.reply});$('lilybody').insertAdjacentHTML('beforeend','<div class="bubble">'+esc(d.reply).replace(/\n/g,'<br>')+'</div>')}catch{toast('Лили временно недоступна')}}
 boot();
 
+<script src="/client.js"></script>
 </script><script src="/vkb_fixes.js"></script></body></html>
